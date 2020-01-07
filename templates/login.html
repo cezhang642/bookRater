@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Project1</title>
+  </head>
+  <body>
+    <div class="bg"></div>
+    <div class="row justify-content-around">
+      <div class="col-4">
+        <form id="newUser" action="{{url_for('new_login')}}" method="post">
+          <p>New User?</p><br>
+          <input type="text" name="username" placeholder="Username"><br>
+          <input type="password" name="password" placeholder="Password"><br>
+          <button id="createuserbutton" type = "submit">Create User</button>
+        </form>
+      </div>
+      <div class="col-4">
+        <form id="existingUser" action="{{url_for('login')}}" method="post">
+          <p>Existing User?</p><br>
+          <input type="text" name="username" placeholder="Username"><br>
+          <input type="password" name="password" placeholder="Password"><br>
+          <button id="loginbutton" type = "submit">Log in</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
