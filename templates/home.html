@@ -8,6 +8,10 @@
     <title>Project1</title>
   </head>
   <body>
-    <p>hello world</p>
+    <form id="existingUser" action="{{url_for('home')}}" method="post">
+      <input type="inputText" name="inputText" placeholder="Author, Title, or ISBN"><br>
+      <button id="searchbutton" type = "submit">Search</button>
+    </form>
+    <p>{{ all_books }}</p>
   </body>
 </html>
