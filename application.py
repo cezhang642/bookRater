@@ -1,9 +1,11 @@
 import os
+import requests
 
 from flask import Flask, session, render_template, request, redirect, flash
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from xml.etree import ElementTree
 
 app = Flask(__name__)
 
@@ -58,6 +60,20 @@ def login():
     return render_template('login.html', template_folder='templates')
 
 
-@app.route("/home")
+@app.route("/home", methods=["GET","POST"])
+@app.route('/home/', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html', template_folder='templates')
+    all_books = ""
+    if request.method == "POST":
+        user_input = request.form.get('inputText')
+        api_key = "bH4Y0etz0qZR0NjnEJx1A"
+        res = requests.get("https://www.goodreads.com/search/index.xml", params={"q": user_input, "key": api_key})
+        if res.status_code != 200:
+            raise Exception("ERROR: API request unsuccessful.")
+
+        root = ElementTree.fromstring(res.content)
+        for title in root.iter('*'):
+            book_title = title.find('title')
+            if book_title is not None:
+                all_books += (book_title.text)
+    return render_template('home.html', template_folder='templates', all_books=all_books)
